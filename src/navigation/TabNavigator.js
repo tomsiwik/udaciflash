@@ -4,15 +4,13 @@ import {
   createAppContainer
 } from "react-navigation";
 
-import DashboardScreen from "../screens/DashboardScreen";
 import DecksScreen from "../screens/DecksScreen";
-import QuizScreen from "../screens/QuizScreen";
+import CardsScreen from "../screens/CardsScreen";
 
 const TabScreen = createMaterialTopTabNavigator(
   {
-    Dashboard: { screen: DashboardScreen },
     Decks: { screen: DecksScreen },
-    Quiz: { screen: QuizScreen }
+    Cards: { screen: CardsScreen }
   },
   {
     tabBarPosition: "top",
@@ -31,7 +29,10 @@ const TabScreen = createMaterialTopTabNavigator(
       labelStyle: {
         textAlign: "center"
       }
-    }
+    },
+    defaultNavigationOptions: ({ navigation }) => ({
+      title: navigation.state.routeName
+    })
   }
 );
 
@@ -43,7 +44,7 @@ const App = createStackNavigator({
         backgroundColor: "#AA0000"
       },
       headerTintColor: "#FFFFFF",
-      title: "UdaciCards"
+      title: "Dashboard"
     }
   }
 });

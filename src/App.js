@@ -1,15 +1,10 @@
 import React from "react";
-import { createStore, compose } from "redux";
-import { StyleSheet, View } from "react-native";
-import { registerRootComponent } from "expo";
+import { bindActionCreators } from "redux";
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
-import { Provider } from "react-redux";
+import { connect } from "react-redux";
 import { TabNavigator } from "./navigation";
-
-import reducers from "./reducers";
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(/* middlewares */));
+import { initRepeatingNotification } from "./utils";
+import * as actionCreators from "./actions";
 
 const AppContainer = createAppContainer(
   createSwitchNavigator({
@@ -18,22 +13,26 @@ const AppContainer = createAppContainer(
 );
 
 class App extends React.Component {
+  componentDidMount() {
+    const { actions } = this.props;
+
+    // Repeats whenever app starts and regularly each day until quizzed (skips 1 day)
+    initRepeatingNotification();
+
+    actions.loadDecks();
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Provider store={store}>
-          <AppContainer />
-        </Provider>
-      </View>
-    );
+    return <AppContainer />;
   }
 }
 
-export default registerRootComponent(App);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  }
+const mapStateToProps = ({ decks, deck }) => ({ decks, deck });
+const mapDispatchProps = dispatch => ({
+  actions: bindActionCreators(actionCreators, dispatch)
 });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchProps
+)(App);

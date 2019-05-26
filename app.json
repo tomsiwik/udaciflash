@@ -2,12 +2,10 @@
   "expo": {
     "name": "udaciflash",
     "slug": "udaciflash",
-    "entryPoint": "./src/App.js",
+    "entryPoint": "./src/index.js",
     "privacy": "public",
     "sdkVersion": "32.0.0",
-    "platforms": [
-      "android"
-    ],
+    "platforms": ["android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
@@ -19,9 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     }

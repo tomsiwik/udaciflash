@@ -1,16 +1,51 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { FlatList, View } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
+
+import {
+  Card,
+  CardText,
+  Action,
+  ActionButtons,
+  ActionButton,
+  ActionButtonText
+} from "../components";
 
 class DecksScreen extends React.Component {
   static navigationOptions = {
     title: "Decks"
   };
 
+  handleSelectDeck = item => e => {
+    console.log("Selected:", item);
+  };
+
   render() {
-    return <ScrollView style={styles.container} />;
+    const { decks, deck } = this.props;
+
+    return (
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={Object.values(decks || {})}
+          renderItem={({ item }) => (
+            <Card onPress={this.handleSelectDeck(item)}>
+              <CardText selected={item.id === deck}>
+                {item.topic} - {item.cards.length} Cards
+              </CardText>
+            </Card>
+          )}
+        />
+        <Action>
+          <ActionButtons>
+            <ActionButton center color="#AA0000" onPress={this.handleAddDeck}>
+              <ActionButtonText>Add Deck</ActionButtonText>
+            </ActionButton>
+          </ActionButtons>
+        </Action>
+      </View>
+    );
   }
 }
 
@@ -24,11 +59,3 @@ export default connect(
   mapStateToProps,
   mapDispatchProps
 )(DecksScreen);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#fff"
-  }
-});

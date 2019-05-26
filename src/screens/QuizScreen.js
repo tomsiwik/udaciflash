@@ -1,7 +1,20 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View, Button } from "react-native";
+import { ScrollView, View } from "react-native";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {
+  Card,
+  CardText,
+  Action,
+  ActionButton,
+  ActionButtons,
+  ActionButtonText,
+  Answer,
+  AnswerText
+} from "../components";
+import * as actionCreators from "../actions";
 
-export default class QuizScreen extends React.Component {
+class QuizScreen extends React.Component {
   static navigationOptions = {
     title: "Quiz"
   };
@@ -13,9 +26,9 @@ export default class QuizScreen extends React.Component {
     score: 0
   };
 
-  handleAnswer = correct => {
+  handleAnswer = correct => () => {
     const { score, cardIndex } = this.state;
-    const { deck } = this.props;
+    const { deck, [deck]: deckCards } = this.props.decks;
 
     const newState = {
       revealed: false
@@ -25,7 +38,7 @@ export default class QuizScreen extends React.Component {
       newState.score = score + 1;
     }
 
-    if (cardIndex + 1 < deck.length) {
+    if (cardIndex + 1 < deckCards.length) {
       newState.cardIndex = cardIndex + 1;
     } else {
       newState.completed = true;
@@ -52,107 +65,64 @@ export default class QuizScreen extends React.Component {
   };
 
   render() {
-    const { revealed } = this.state;
+    const { revealed, cardIndex } = this.state;
+    const {
+      deck,
+      decks: { [deck]: cards }
+    } = this.props;
+
+    //const card = cards ? cards[cardIndex] : {};
 
     return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
-          {!revealed && (
-            <View
-              style={styles.unrevealedContainer}
-              onTouchEnd={this.handleReveal}
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <Card
+              flipped={!revealed}
+              underlayColor="#AA0000"
+              onPress={this.handleReveal}
             >
-              <Text style={styles.unrevealedTitle}>Question:</Text>
-              <Text style={styles.unrevealedText}>Question</Text>
-            </View>
-          )}
-          {revealed && (
-            <View
-              style={styles.revealedContainer}
-              onTouchEnd={this.handleReveal}
-            >
-              <Text style={styles.revealedTitle}>Answer:</Text>
-              <Text style={styles.revealedText}>Answer</Text>
-            </View>
-          )}
+              <CardText>{!revealed ? "Question" : "Answer"}</CardText>
+            </Card>
+            {revealed && (
+              <Answer>
+                <AnswerText>Hello World!</AnswerText>
+              </Answer>
+            )}
+          </View>
         </ScrollView>
-        <View style={styles.buttonContainer}>
-          <View style={styles.buttonFlex}>
-            <Button
+        <Action>
+          <ActionButtons>
+            <ActionButton
               disabled={!revealed}
-              style={styles.button}
-              title="Correct"
               color="#00AA00"
-            />
-          </View>
-          <View style={styles.buttonFlex}>
-            <Button
+              onPress={this.handleAnswer(false)}
+            >
+              <ActionButtonText disabled={!revealed}>Correct</ActionButtonText>
+            </ActionButton>
+          </ActionButtons>
+          <ActionButtons>
+            <ActionButton
               disabled={!revealed}
-              style={styles.button}
-              title="Wrong"
               color="#AA0000"
-            />
-          </View>
-        </View>
+              onPress={this.handleAnswer(false)}
+            >
+              <ActionButtonText disabled={!revealed}>Wrong</ActionButtonText>
+            </ActionButton>
+          </ActionButtons>
+        </Action>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  contentContainer: {},
-  revealedContainer: {
-    margin: 10,
-    padding: 20,
-    backgroundColor: "#AA0000"
-  },
-  revealedText: {
-    padding: 20,
-    color: "#FFFFFF",
-    fontWeight: "400"
-  },
-  revealedTitle: {
-    fontWeight: "900"
-  },
-  unrevealedContainer: {
-    margin: 10,
-    padding: 20,
-    backgroundColor: "#F0F0F0"
-  },
-  unrevealedText: {
-    padding: 20,
-    color: "#000000",
-    fontWeight: "400"
-  },
-  unrevealedTitle: {
-    fontWeight: "900"
-  },
-  buttonContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#F0F0F0",
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: 65
-  },
-  buttonFlex: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "stretch",
-    height: 65
-  },
-  button: {
-    width: "50%"
-  }
+const mapStateToProps = ({ decks, deck }) => ({ decks, deck });
+
+const mapDispatchProps = dispatch => ({
+  actions: bindActionCreators(actionCreators, dispatch)
 });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchProps
+)(QuizScreen);
