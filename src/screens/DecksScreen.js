@@ -19,7 +19,9 @@ class DecksScreen extends React.Component {
   };
 
   handleSelectDeck = item => e => {
-    console.log("Selected:", item);
+    const { navigate } = this.props.navigation;
+
+    navigate("Deck", { id: item.id });
   };
 
   render() {

@@ -6,13 +6,11 @@ One Paragraph of project description goes here
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### Note
 
-What things you need to install the software and how to install them
+This app has been tested on:
 
-```
-Give examples
-```
+- Android (Pixel 2)
 
 ### Installing
 
@@ -34,9 +32,9 @@ until finished
 
 ## Built With
 
-* [Expo]() - The web framework used
-* [React Native]() - Dependency Management
-* [Redux]() - Used to generate RSS Feeds
+- [Expo]() - The web framework used
+- [React Native]() - Dependency Management
+- [Redux]() - Used to generate RSS Feeds
 
 ## Contributing
 
@@ -44,11 +42,11 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/tomsiwik/udaciflash/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/tomsiwik/udaciflash/tags).
 
 ## Authors
 
-* **Tomas Sivicki** - *Initial work* - [tomsiwik](https://github.com/tomsiwik)
+- **Tomas Sivicki** - _Initial work_ - [tomsiwik](https://github.com/tomsiwik)
 
 See also the list of [contributors](https://github.com/tomsiwik/udaciflash/contributors) who participated in this project.
 
@@ -58,7 +56,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc

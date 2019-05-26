@@ -2,13 +2,13 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { connect } from "react-redux";
-import { TabNavigator } from "./navigation";
+import { Navigator } from "./navigation";
 import { initRepeatingNotification } from "./utils";
 import * as actionCreators from "./actions";
 
 const AppContainer = createAppContainer(
   createSwitchNavigator({
-    Main: TabNavigator
+    Main: Navigator
   })
 );
 

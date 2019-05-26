@@ -39,3 +39,20 @@ export const Empty = ({ children, ...props }) => (
     <EmptyText>{children}</EmptyText>
   </EmptyContainer>
 );
+
+const InfoText = styled.Text`
+  font-size: 12px;
+  margin: 40px;
+  text-align: center;
+  line-height: 30px;
+`;
+
+const InfoContainer = styled.View`
+  padding: 20px;
+`;
+
+export const Info = ({ children, ...props }) => (
+  <InfoContainer {...props}>
+    <InfoText>{children}</InfoText>
+  </InfoContainer>
+);

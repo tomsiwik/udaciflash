@@ -30,7 +30,7 @@ Your application should have, at a minimum, five views.
 - New Deck View
   - An option to enter in the title for the new deck
   - An option to submit the new deck title
-New Question View
+    New Question View
   - An option to enter in the question
   - An option to enter in the answer
   - An option to submit the new question
@@ -70,17 +70,17 @@ New Question View
 
 Is the application easy to install and start?
 
-- [ ] The application requires only yarn install and yarn start to install and launch. npm can be used in place of yarn.
+- [x] The application requires only yarn install and yarn start to install and launch. npm can be used in place of yarn.
 
 Does the application include a README with clear installation and launch instructions?
 
-- [ ] A README is included with the project. The README includes clear instructions for installing and launching the project.
+- [] A README is included with the project. The README includes clear instructions for installing and launching the project.
 
 #### Application Functionality
 
 Is the initial view a Deck List view?
 
-- [ ] The primary view, seen when the app loads, is a list of created decks which includes the name of each deck and the number of cards.
+- [x] The primary view, seen when the app loads, is a list of created decks which includes the name of each deck and the number of cards.
 
 Does the Deck List view function correctly?
 
@@ -102,15 +102,11 @@ Does the Deck List view function correctly?
   - When the score is displayed, buttons are displayed to either start the quiz over or go back to the Individual Deck view.
   - Both the 'Restart Quiz' and 'Back to Deck' buttons route correctly to their respective views.
 - [ ] The view includes a form for creating a new deck - which should just be an input for the title and a 'Create Deck' button. Pressing the button correctly creates the deck and routes the user to the Individual Deck view for the new deck.
-- [ ] Logic for notification has been implemented. Notifications are generated at a specific time if the user hasn't completed at least one quiz for that day.
-- [ ] The app works correctly in either Android OR iOS devices (or emulator).
-- [ ] Project README identifies which platform(s) have been tested.
+- [x] Logic for notification has been implemented. Notifications are generated at a specific time if the user hasn't completed at least one quiz for that day.
+- [x] The app works correctly in either Android OR iOS devices (or emulator).
+- [x] Project README identifies which platform(s) have been tested.
 
 #### Code Quality
 
-- [ ] Project code uses reasonable naming conventions. Components are written for reuse and use a modular structure.
-- [ ] There are no build errors when starting the app. There are no errors while using the app. There are no warnings that resulted from not following the best practices listed in the documentation, such as using key for list items. All code is functional and formatted properly.
-
-
-
-
+- [x] Project code uses reasonable naming conventions. Components are written for reuse and use a modular structure.
+- [x] There are no build errors when starting the app. There are no errors while using the app. There are no warnings that resulted from not following the best practices listed in the documentation, such as using key for list items. All code is functional and formatted properly.

@@ -27,7 +27,7 @@ class QuizScreen extends React.Component {
   };
 
   handleAnswer = correct => () => {
-    const { score, cardIndex } = this.state;
+    const { score, completed, cardIndex } = this.state;
     const { deck, [deck]: deckCards } = this.props.decks;
 
     const newState = {
@@ -71,46 +71,82 @@ class QuizScreen extends React.Component {
       decks: { [deck]: cards }
     } = this.props;
 
-    //const card = cards ? cards[cardIndex] : {};
+    const cardsLeft = cards.length - cardIndex;
 
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <View>
-            <Card
-              flipped={!revealed}
-              underlayColor="#AA0000"
-              onPress={this.handleReveal}
-            >
-              <CardText>{!revealed ? "Question" : "Answer"}</CardText>
-            </Card>
-            {revealed && (
-              <Answer>
-                <AnswerText>Hello World!</AnswerText>
-              </Answer>
-            )}
-          </View>
+          {completed ? (
+            <View>
+              <Text>TODO:</Text>
+            </View>
+          ) : (
+            <View>
+              <Card
+                flipped={!revealed}
+                underlayColor="#AA0000"
+                onPress={this.handleReveal}
+              >
+                <CardText>{!revealed ? "Question" : "Answer"}</CardText>
+              </Card>
+              {revealed ? (
+                <Answer>
+                  <AnswerText>Hello World!</AnswerText>
+                </Answer>
+              ) : (
+                <Info>Show answer by tapping the card</Info>
+              )}
+            </View>
+          )}
         </ScrollView>
-        <Action>
-          <ActionButtons>
-            <ActionButton
-              disabled={!revealed}
-              color="#00AA00"
-              onPress={this.handleAnswer(false)}
-            >
-              <ActionButtonText disabled={!revealed}>Correct</ActionButtonText>
-            </ActionButton>
-          </ActionButtons>
-          <ActionButtons>
-            <ActionButton
-              disabled={!revealed}
-              color="#AA0000"
-              onPress={this.handleAnswer(false)}
-            >
-              <ActionButtonText disabled={!revealed}>Wrong</ActionButtonText>
-            </ActionButton>
-          </ActionButtons>
-        </Action>
+
+        {completed ? (
+          <Action>
+            <ActionButtons>
+              <ActionButton
+                disabled={!revealed}
+                color="#AA0000"
+                onPress={this.handleRestart}
+              >
+                <ActionButtonText>Restart Quiz</ActionButtonText>
+              </ActionButton>
+            </ActionButtons>
+            <ActionButtons>
+              <ActionButton
+                disabled={!revealed}
+                color="#AA0000"
+                onPress={this.handleBackToDeck}
+              >
+                <ActionButtonText>Back to Deck</ActionButtonText>
+              </ActionButton>
+            </ActionButtons>
+          </Action>
+        ) : (
+          <Action>
+            <ActionButtons>
+              <ActionButton
+                disabled={!revealed}
+                color="#00AA00"
+                onPress={this.handleAnswer(true)}
+              >
+                <ActionButtonText disabled={!revealed}>
+                  Correct
+                </ActionButtonText>
+              </ActionButton>
+            </ActionButtons>
+            <ActionButtons>
+              <ActionButton
+                disabled={!revealed}
+                color="#AA0000"
+                onPress={this.handleAnswer(false)}
+              >
+                <ActionButtonText disabled={!revealed}>
+                  Incorrect
+                </ActionButtonText>
+              </ActionButton>
+            </ActionButtons>
+          </Action>
+        )}
       </View>
     );
   }
