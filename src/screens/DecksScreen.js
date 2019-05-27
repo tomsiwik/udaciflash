@@ -4,24 +4,28 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
 
-import {
-  Card,
-  CardText,
-  Action,
-  ActionButtons,
-  ActionButton,
-  ActionButtonText
-} from "../components";
+import { Card, CardText, Action, ActionButtons, ActionButton, ActionButtonText } from "../components";
 
 class DecksScreen extends React.Component {
   static navigationOptions = {
     title: "Decks"
   };
 
-  handleSelectDeck = item => e => {
-    const { navigate } = this.props.navigation;
+  handleAddDeck = e => {
+    const {
+      navigation: { navigate },
+      actions: { upsertDeck }
+    } = this.props;
 
-    navigate("Deck", { id: item.id });
+    navigate("NewDeck", { save: upsertDeck });
+  };
+
+  handleSelectDeck = item => e => {
+    const {
+      navigation: { navigate }
+    } = this.props;
+
+    navigate("Cards", { id: item.id });
   };
 
   render() {

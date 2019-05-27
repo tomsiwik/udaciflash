@@ -2,6 +2,9 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import DecksScreen from "../screens/DecksScreen";
 import CardsScreen from "../screens/CardsScreen";
+import NewCardScreen from "../screens/NewCardScreen";
+import NewDeckScreen from "../screens/NewDeckScreen";
+import QuizScreen from "../screens/QuizScreen";
 
 const header = {
   headerStyle: {
@@ -16,7 +19,10 @@ const header = {
 const App = createStackNavigator(
   {
     Decks: { screen: DecksScreen },
-    Cards: { screen: CardsScreen }
+    Cards: { screen: CardsScreen },
+    NewDeck: { screen: NewDeckScreen },
+    NewCard: { screen: NewCardScreen },
+    Quiz: { screen: QuizScreen }
   },
   {
     initialRouteName: "Decks",

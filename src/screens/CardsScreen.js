@@ -1,14 +1,6 @@
 import React from "react";
 import { FlatList, View, Text } from "react-native";
-import {
-  Card,
-  CardText,
-  Empty,
-  Action,
-  ActionButtons,
-  ActionButton,
-  ActionButtonText
-} from "../components";
+import { Card, CardText, Empty, Action, ActionButtons, ActionButton, ActionButtonText } from "../components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
@@ -16,17 +8,35 @@ import * as actionCreators from "../actions";
 class CardsScreen extends React.Component {
   static navigationOptions = {
     title: "Cards"
+    // TODO: add back button
   };
 
-  handleSelectCard = item => e => {
-    console.log("Selected card:", item);
+  handleAddCard = item => e => {
+    const {
+      navigation: { navigate }
+    } = this.props;
+
+    // TODO: get deckId from navigation
+    navigate("NewCard", { id: item.id, deckId: undefined });
+  };
+
+  handleStartQuiz = e => {
+    const {
+      navigation: { navigate },
+      decks
+    } = this.props;
+
+    // TODO: get deckId from navigation
+    navigate("Quiz", { deck: decks[1 /* PUT ID HERE */] });
   };
 
   render() {
-    const {
-      deck,
-      decks: { [deck]: cards }
-    } = this.props;
+    const { navigation, decks } = this.props;
+
+    // TODO: get deck ID from navigation state
+    console.log(navigation.state);
+
+    const deckEmpty = decks[1] && deck[1].cards.length > 0;
 
     return (
       <View style={{ flex: 1 }}>
@@ -47,13 +57,13 @@ class CardsScreen extends React.Component {
         />
         <Action>
           <ActionButtons>
-            <ActionButton
-              disabled={!deck}
-              center
-              color="#AA0000"
-              onPress={this.handleAddDeck}
-            >
-              <ActionButtonText>Add Card</ActionButtonText>
+            <ActionButton disabled={deckEmpty} color="#AA0000" onPress={this.handleAddCard}>
+              <ActionButtonText disabled={deckEmpty}>Add Card</ActionButtonText>
+            </ActionButton>
+          </ActionButtons>
+          <ActionButtons>
+            <ActionButton disabled={deckEmpty} color="#00AA00" onPress={this.handleStartQuiz}>
+              <ActionButtonText disabled={deckEmpty}>Start Quiz</ActionButtonText>
             </ActionButton>
           </ActionButtons>
         </Action>

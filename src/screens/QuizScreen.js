@@ -47,6 +47,7 @@ class QuizScreen extends React.Component {
     this.setState(newState);
   };
 
+  // TODO: create flip animation of card
   handleReveal = () => {
     this.setState({ revealed: !this.state.revealed });
   };
@@ -82,11 +83,7 @@ class QuizScreen extends React.Component {
             </View>
           ) : (
             <View>
-              <Card
-                flipped={!revealed}
-                underlayColor="#AA0000"
-                onPress={this.handleReveal}
-              >
+              <Card flipped={!revealed} underlayColor="#AA0000" onPress={this.handleReveal}>
                 <CardText>{!revealed ? "Question" : "Answer"}</CardText>
               </Card>
               {revealed ? (
@@ -94,7 +91,7 @@ class QuizScreen extends React.Component {
                   <AnswerText>Hello World!</AnswerText>
                 </Answer>
               ) : (
-                <Info>Show answer by tapping the card</Info>
+                <Info>Show answer by tapping the card or `Reveal` button below.</Info>
               )}
             </View>
           )}
@@ -103,20 +100,12 @@ class QuizScreen extends React.Component {
         {completed ? (
           <Action>
             <ActionButtons>
-              <ActionButton
-                disabled={!revealed}
-                color="#AA0000"
-                onPress={this.handleRestart}
-              >
+              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleRestart}>
                 <ActionButtonText>Restart Quiz</ActionButtonText>
               </ActionButton>
             </ActionButtons>
             <ActionButtons>
-              <ActionButton
-                disabled={!revealed}
-                color="#AA0000"
-                onPress={this.handleBackToDeck}
-              >
+              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleBackToDeck}>
                 <ActionButtonText>Back to Deck</ActionButtonText>
               </ActionButton>
             </ActionButtons>
@@ -124,25 +113,13 @@ class QuizScreen extends React.Component {
         ) : (
           <Action>
             <ActionButtons>
-              <ActionButton
-                disabled={!revealed}
-                color="#00AA00"
-                onPress={this.handleAnswer(true)}
-              >
-                <ActionButtonText disabled={!revealed}>
-                  Correct
-                </ActionButtonText>
+              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleAnswer(false)}>
+                <ActionButtonText disabled={!revealed}>Incorrect</ActionButtonText>
               </ActionButton>
             </ActionButtons>
             <ActionButtons>
-              <ActionButton
-                disabled={!revealed}
-                color="#AA0000"
-                onPress={this.handleAnswer(false)}
-              >
-                <ActionButtonText disabled={!revealed}>
-                  Incorrect
-                </ActionButtonText>
+              <ActionButton disabled={!revealed} color="#00AA00" onPress={this.handleAnswer(true)}>
+                <ActionButtonText disabled={!revealed}>Correct</ActionButtonText>
               </ActionButton>
             </ActionButtons>
           </Action>

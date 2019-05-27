@@ -1,10 +1,10 @@
 # UdaciFlash
 
-One Paragraph of project description goes here
+This project is from the React Nano Degree from Udacity. It's a flash cards application coded in react native.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+To get you up and running please follow the steps below.
 
 ### Note
 
@@ -14,20 +14,20 @@ This app has been tested on:
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+You can substitute the below command with `npm`
 
-Say what the step will be
+```sh
+# npm install
 
-```
-Give the example
+yarn
 ```
 
 ### Up and Running
 
-And repeat
+This is an expo app and will simply start the metro bundler. In the metro dashboard you can also publish and build your app for production.
 
 ```
-until finished
+yarn start
 ```
 
 ## Built With
@@ -38,11 +38,11 @@ until finished
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/tomsiwik/udaciflash/tags).
+[SemVer](http://semver.org/) is used for versioning. For the versions available, see the [tags on this repository](https://github.com/tomsiwik/udaciflash/tags).
 
 ## Authors
 
@@ -56,6 +56,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+- Hat tip to anyone whose code was used:
+  - `@emotion`
+  - `react-redux`
+  - `redux`
+  - `redux-logger`
