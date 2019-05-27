@@ -11,32 +11,40 @@ class CardsScreen extends React.Component {
     // TODO: add back button
   };
 
-  handleAddCard = item => e => {
+  handleAddCard = e => {
     const {
-      navigation: { navigate }
+      navigation: {
+        navigate,
+        state: { deckId }
+      },
+      actions: { addCard }
     } = this.props;
 
-    // TODO: get deckId from navigation
-    navigate("NewCard", { id: item.id, deckId: undefined });
+    navigate("NewCard", { save: addCard(deckId) });
   };
 
   handleStartQuiz = e => {
     const {
-      navigation: { navigate },
+      navigation: {
+        navigate,
+        state: { deckId }
+      },
       decks
     } = this.props;
 
-    // TODO: get deckId from navigation
-    navigate("Quiz", { deck: decks[1 /* PUT ID HERE */] });
+    navigate("Quiz", { deck: decks[deckId] });
   };
 
   render() {
-    const { navigation, decks } = this.props;
+    const {
+      navigation: {
+        state: { deckId }
+      },
+      decks
+    } = this.props;
 
-    // TODO: get deck ID from navigation state
-    console.log(navigation.state);
-
-    const deckEmpty = decks[1] && deck[1].cards.length > 0;
+    const deck = decks[deckId];
+    const deckEmpty = deck && deck.cards && deck.cards.length > 0;
 
     return (
       <View style={{ flex: 1 }}>
@@ -44,7 +52,7 @@ class CardsScreen extends React.Component {
           data={[]}
           ListEmptyComponent={() => (
             <Empty>
-              {deck
+              {deck && deckEmpty
                 ? "Your card list is empty. Add card with the button below."
                 : "You didn't select a deck. Select one in `Decks`."}
             </Empty>

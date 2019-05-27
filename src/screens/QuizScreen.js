@@ -68,10 +68,12 @@ class QuizScreen extends React.Component {
   render() {
     const { revealed, cardIndex } = this.state;
     const {
-      deck,
-      decks: { [deck]: cards }
+      navigation: {
+        state: { deck }
+      }
     } = this.props;
 
+    const { cards } = deck;
     const cardsLeft = cards.length - cardIndex;
 
     return (

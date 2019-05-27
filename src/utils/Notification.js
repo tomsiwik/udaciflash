@@ -2,14 +2,13 @@ import { Notifications } from "expo";
 import { AsyncStorage } from "react-native";
 
 const LOCAL_NOTIFICATION_ID = "tomsiwik.udaciflash";
-const DONE_ON_DATE = "done.on.date";
 
 export const pauseTodaysNotification = async () => {
   await scheduleNotification(true);
 };
 
 export const initRepeatingNotification = async () => {
-  const doneDate = await AsyncStorage.getItem(DONE_ON_DATE);
+  const doneDate = await AsyncStorage.getItem(LOCAL_NOTIFICATION_ID);
   scheduleNotification(doneDate ? doneDate < new Date().getDate() : false);
 };
 
@@ -36,7 +35,5 @@ const scheduleNotification = async skipToday => {
     }
   );
 
-  console.log("wat", notificationId);
-
-  if (skipToday) await AsyncStorage.setItem(DONE_ON_DATE, today);
+  if (skipToday) await AsyncStorage.setItem(LOCAL_NOTIFICATION_ID, today);
 };

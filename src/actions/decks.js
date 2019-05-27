@@ -1,8 +1,16 @@
 import * as ACTION from "./types";
-import {
-  loadDecks as loadDecksApi,
-  upsertDeck as upsertDeckApi
-} from "../utils";
+import { addCard as addCardApi, loadDecks as loadDecksApi, upsertDeck as upsertDeckApi } from "../utils";
+
+// HOC actions, is this an anti-pattern?
+export const addCard = deckId => card => async dispatch => {
+  await addCardApi(deckId, card);
+
+  dispatch({
+    type: ACTION.ADD_CARD,
+    deckId,
+    card
+  });
+};
 
 export const loadDecks = () => async dispatch => {
   const decks = await loadDecksApi();
@@ -19,12 +27,5 @@ export const upsertDeck = deck => async dispatch => {
   dispatch({
     type: ACTION.UPSERT_DECK,
     deck
-  });
-};
-
-export const selectDeck = deckId => dispatch => {
-  dispatch({
-    type: ACTION.SELECT_DECK,
-    deckId
   });
 };

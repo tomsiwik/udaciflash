@@ -20,12 +20,12 @@ class DecksScreen extends React.Component {
     navigate("NewDeck", { save: upsertDeck });
   };
 
-  handleSelectDeck = item => e => {
+  handleSelectDeck = deck => e => {
     const {
       navigation: { navigate }
     } = this.props;
 
-    navigate("Cards", { id: item.id });
+    navigate("Cards", { deckId: deck.id });
   };
 
   render() {
@@ -45,7 +45,7 @@ class DecksScreen extends React.Component {
         />
         <Action>
           <ActionButtons>
-            <ActionButton center color="#AA0000" onPress={this.handleAddDeck}>
+            <ActionButton color="#AA0000" onPress={this.handleAddDeck}>
               <ActionButtonText>Add Deck</ActionButtonText>
             </ActionButton>
           </ActionButtons>
