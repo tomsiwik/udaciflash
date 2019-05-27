@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
@@ -8,11 +8,11 @@ import {
   Action,
   ActionButton,
   ActionButtons,
-  ActionButtonText,
-  Answer,
-  AnswerText
+  ActionButtonText
 } from "../components";
 import * as actionCreators from "../actions";
+import { pauseTodaysNotification } from "../utils";
+import * as Animatable from "react-native-animatable";
 
 class QuizScreen extends React.Component {
   static navigationOptions = {
@@ -26,9 +26,16 @@ class QuizScreen extends React.Component {
     score: 0
   };
 
-  handleAnswer = correct => () => {
-    const { score, completed, cardIndex } = this.state;
-    const { deck, [deck]: deckCards } = this.props.decks;
+  handleAnswer = correct => e => {
+    const { score, cardIndex } = this.state;
+    const {
+      navigation: {
+        state: {
+          params: { deck }
+        }
+      }
+    } = this.props;
+    const { cards } = deck;
 
     const newState = {
       revealed: false
@@ -38,9 +45,10 @@ class QuizScreen extends React.Component {
       newState.score = score + 1;
     }
 
-    if (cardIndex + 1 < deckCards.length) {
+    if (cardIndex + 1 < cards.length) {
       newState.cardIndex = cardIndex + 1;
     } else {
+      pauseTodaysNotification();
       newState.completed = true;
     }
 
@@ -52,11 +60,17 @@ class QuizScreen extends React.Component {
     this.setState({ revealed: !this.state.revealed });
   };
 
-  handleReset = () => {
+  handleBackToDeck = () => {
+    const { navigation } = this.props;
+
+    navigation.goBack();
+  };
+
+  handleReset = e => {
     this.setState({
-      revealed: false,
       cardIndex: 0,
       completed: false,
+      revealed: false,
       score: 0
     });
   };
@@ -66,35 +80,45 @@ class QuizScreen extends React.Component {
   };
 
   render() {
-    const { revealed, cardIndex } = this.state;
+    const { revealed, completed, cardIndex, score } = this.state;
     const {
       navigation: {
-        state: { deck }
+        state: {
+          params: { deck }
+        }
       }
     } = this.props;
 
     const { cards } = deck;
+    const card = cards[cardIndex];
     const cardsLeft = cards.length - cardIndex;
+    const procCorrect = (score / cards.length) * 100;
 
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
           {completed ? (
             <View>
-              <Text>TODO:</Text>
+              <Text>Completed: {procCorrect}% Correct</Text>
             </View>
           ) : (
             <View>
-              <Card flipped={!revealed} underlayColor="#AA0000" onPress={this.handleReveal}>
+              <Card
+                flipped={!revealed}
+                underlayColor="#AA0000"
+                onPress={this.handleReveal}
+              >
                 <CardText>{!revealed ? "Question" : "Answer"}</CardText>
               </Card>
-              {revealed ? (
-                <Answer>
-                  <AnswerText>Hello World!</AnswerText>
-                </Answer>
-              ) : (
-                <Info>Show answer by tapping the card or `Reveal` button below.</Info>
-              )}
+              {/* TODO: as comp withAnimatable(Component) */}
+              <Animatable.View animation={revealed && "flipInX"}>
+                <View>
+                  <Text>{card.question}</Text>
+                </View>
+                <View>
+                  <Text>{card.answer}</Text>
+                </View>
+              </Animatable.View>
             </View>
           )}
         </ScrollView>
@@ -102,12 +126,12 @@ class QuizScreen extends React.Component {
         {completed ? (
           <Action>
             <ActionButtons>
-              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleRestart}>
+              <ActionButton color="#AA0000" onPress={this.handleReset}>
                 <ActionButtonText>Restart Quiz</ActionButtonText>
               </ActionButton>
             </ActionButtons>
             <ActionButtons>
-              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleBackToDeck}>
+              <ActionButton color="#AA0000" onPress={this.handleBackToDeck}>
                 <ActionButtonText>Back to Deck</ActionButtonText>
               </ActionButton>
             </ActionButtons>
@@ -115,13 +139,25 @@ class QuizScreen extends React.Component {
         ) : (
           <Action>
             <ActionButtons>
-              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleAnswer(false)}>
-                <ActionButtonText disabled={!revealed}>Incorrect</ActionButtonText>
+              <ActionButton
+                disabled={!revealed}
+                color="#AA0000"
+                onPress={this.handleAnswer(false)}
+              >
+                <ActionButtonText disabled={!revealed}>
+                  Incorrect
+                </ActionButtonText>
               </ActionButton>
             </ActionButtons>
             <ActionButtons>
-              <ActionButton disabled={!revealed} color="#00AA00" onPress={this.handleAnswer(true)}>
-                <ActionButtonText disabled={!revealed}>Correct</ActionButtonText>
+              <ActionButton
+                disabled={!revealed}
+                color="#00AA00"
+                onPress={this.handleAnswer(true)}
+              >
+                <ActionButtonText disabled={!revealed}>
+                  Correct
+                </ActionButtonText>
               </ActionButton>
             </ActionButtons>
           </Action>

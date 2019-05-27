@@ -8,19 +8,28 @@ export const pauseTodaysNotification = async () => {
 };
 
 export const initRepeatingNotification = async () => {
-  const doneDate = await AsyncStorage.getItem(LOCAL_NOTIFICATION_ID);
-  scheduleNotification(doneDate ? doneDate < new Date().getDate() : false);
+  // You can test it by uncommenting
+  // async AsyncStorage.clear()
+
+  const now = new Date();
+  const skipDayValue = await AsyncStorage.getItem(LOCAL_NOTIFICATION_ID);
+  const skipDay = !!skipDayValue ? Number(skipDayValue) : now.getTime();
+
+  console.log("Skipping today: ", skipDay > now);
+
+  scheduleNotification(skipDay > now);
 };
 
 const scheduleNotification = async skipToday => {
-  const notificationDate = new Date();
-  const today = notificationDate.getDate();
-  notificationDate.setDate(today + (skipToday ? 1 : 0));
-  notificationDate.setHours(12); // Midday
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  tomorrow.setHours(12);
 
-  Notifications.cancelAllScheduledNotificationsAsync();
+  const when = skipToday ? tomorrow : today;
 
-  const notificationId = Notifications.scheduleLocalNotificationAsync(
+  await Notifications.cancelAllScheduledNotificationsAsync();
+  await Notifications.scheduleLocalNotificationAsync(
     {
       title: "You haven't quizzed today",
       body: "Go on.. chop chop!",
@@ -31,9 +40,11 @@ const scheduleNotification = async skipToday => {
     },
     {
       repeat: "day",
-      time: new Date().getTime() + 10000
+      time: when.getTime() + 1000 // Avoid warning for (ms vs seconds) by just adding 1 second
     }
   );
 
-  if (skipToday) await AsyncStorage.setItem(LOCAL_NOTIFICATION_ID, today);
+  console.log("Next notification scheduled: ", when);
+
+  await AsyncStorage.setItem(LOCAL_NOTIFICATION_ID, when.getTime().toString());
 };

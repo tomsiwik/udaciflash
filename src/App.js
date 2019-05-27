@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ decks, deck }) => ({ decks, deck });
+const mapStateToProps = ({ decks }) => ({ decks });
 const mapDispatchProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch)
 });

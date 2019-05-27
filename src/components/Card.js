@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "@emotion/native";
+import { Animated } from "react-native";
+import styled, { css } from "@emotion/native";
 
 export const Card = styled.TouchableHighlight`
   display: flex;
   padding: 20px;
   margin-bottom: 1px;
-  background-color: ${props => (props.flipped ? "#f8f8f8" : "#f8f8f8")};
 `;
 
 export const CardText = styled.Text`
@@ -17,6 +17,8 @@ export const CardText = styled.Text`
 export const Answer = styled.View`
   padding: 20px;
   margin: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
 `;
 
 export const AnswerText = styled.Text`

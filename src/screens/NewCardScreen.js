@@ -1,6 +1,11 @@
 import React from "react";
 import { View } from "react-native";
-import { Action, ActionButtons, ActionButton, ActionButtonText } from "../components";
+import {
+  Action,
+  ActionButtons,
+  ActionButton,
+  ActionButtonText
+} from "../components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
@@ -35,7 +40,11 @@ class NewCardScreen extends React.Component {
         </ScrollView>
         <Action>
           <ActionButtons>
-            <ActionButton disabled={!fullFilled} color="#AA0000" onPress={this.handleSaveCard}>
+            <ActionButton
+              disabled={!fullFilled}
+              color="#AA0000"
+              onPress={this.handleSaveCard}
+            >
               <ActionButtonText>Save Card</ActionButtonText>
             </ActionButton>
           </ActionButtons>
