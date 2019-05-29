@@ -40,7 +40,7 @@ const scheduleNotification = async skipToday => {
     },
     {
       repeat: "day",
-      time: when.getTime() + 1000 // Avoid warning for (ms vs seconds) by just adding 1 second
+      time: when.getTime() + 10000 // Avoid warning for (ms vs seconds) by just adding 10 seconds
     }
   );
 

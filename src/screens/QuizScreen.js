@@ -2,17 +2,9 @@ import React from "react";
 import { ScrollView, View, Text } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import {
-  Card,
-  CardText,
-  Action,
-  ActionButton,
-  ActionButtons,
-  ActionButtonText
-} from "../components";
+import { FlipCard, Card, CardText, Action, ActionButton, ActionButtons, ActionButtonText } from "../components";
 import * as actionCreators from "../actions";
 import { pauseTodaysNotification } from "../utils";
-import * as Animatable from "react-native-animatable";
 
 class QuizScreen extends React.Component {
   static navigationOptions = {
@@ -103,22 +95,11 @@ class QuizScreen extends React.Component {
             </View>
           ) : (
             <View>
-              <Card
-                flipped={!revealed}
-                underlayColor="#AA0000"
-                onPress={this.handleReveal}
-              >
+              <Card flipped={!revealed} underlayColor="#AA0000" onPress={this.handleReveal}>
                 <CardText>{!revealed ? "Question" : "Answer"}</CardText>
               </Card>
               {/* TODO: as comp withAnimatable(Component) */}
-              <Animatable.View animation={revealed && "flipInX"}>
-                <View>
-                  <Text>{card.question}</Text>
-                </View>
-                <View>
-                  <Text>{card.answer}</Text>
-                </View>
-              </Animatable.View>
+              <FlipCard flipped={revealed} question={card.question} answer={card.answer} />
             </View>
           )}
         </ScrollView>
@@ -139,25 +120,13 @@ class QuizScreen extends React.Component {
         ) : (
           <Action>
             <ActionButtons>
-              <ActionButton
-                disabled={!revealed}
-                color="#AA0000"
-                onPress={this.handleAnswer(false)}
-              >
-                <ActionButtonText disabled={!revealed}>
-                  Incorrect
-                </ActionButtonText>
+              <ActionButton disabled={!revealed} color="#AA0000" onPress={this.handleAnswer(false)}>
+                <ActionButtonText disabled={!revealed}>Incorrect</ActionButtonText>
               </ActionButton>
             </ActionButtons>
             <ActionButtons>
-              <ActionButton
-                disabled={!revealed}
-                color="#00AA00"
-                onPress={this.handleAnswer(true)}
-              >
-                <ActionButtonText disabled={!revealed}>
-                  Correct
-                </ActionButtonText>
+              <ActionButton disabled={!revealed} color="#00AA00" onPress={this.handleAnswer(true)}>
+                <ActionButtonText disabled={!revealed}>Correct</ActionButtonText>
               </ActionButton>
             </ActionButtons>
           </Action>

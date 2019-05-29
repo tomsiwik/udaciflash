@@ -36,18 +36,20 @@ const _initialDecks = {
 };
 
 const _formatCard = (topic, card) => {
-  const id = Date.now();
+  const id = card.id || Date.now();
   return {
     ...card,
     id,
-    key: `${topic}_card_${id}`
+    key: `${topic.toLowerCase()}_card_${id}`
   };
 };
 
 const _formatDeck = deck => {
+  const id = deck.id || Date.now();
   return {
     ...deck,
-    key: `${deck.topic}_card_${deck.id || Date.now()}`
+    id,
+    key: `${deck.topic.toLowerCase()}_card_${id}`
   };
 };
 
@@ -62,7 +64,8 @@ export const loadDecks = async () => {
 };
 
 export const getDeck = async id => {
-  return loadDecks()[id];
+  const decks = await loadDecks();
+  return decks[id];
 };
 
 export const upsertDeck = async deck => {
@@ -75,6 +78,8 @@ export const upsertDeck = async deck => {
 
 export const addCard = async (deckId, card) => {
   const deck = await getDeck(deckId);
+
+  console.log("Deck:", deck, _formatCard(deck.topic, card));
 
   upsertDeck({
     ...deck,

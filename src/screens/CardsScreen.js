@@ -1,14 +1,6 @@
 import React from "react";
 import { FlatList, View, Text } from "react-native";
-import {
-  Card,
-  CardText,
-  Empty,
-  Action,
-  ActionButtons,
-  ActionButton,
-  ActionButtonText
-} from "../components";
+import { Card, CardText, Empty, Action, ActionButtons, ActionButton, ActionButtonText } from "../components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
@@ -34,7 +26,7 @@ class CardsScreen extends React.Component {
       actions: { addCard }
     } = this.props;
 
-    navigate("NewCard", { save: addCard(deckId) });
+    navigate("NewCard", { deckId, save: addCard });
   };
 
   handleStartQuiz = e => {
@@ -89,14 +81,8 @@ class CardsScreen extends React.Component {
             </ActionButton>
           </ActionButtons>
           <ActionButtons>
-            <ActionButton
-              disabled={deckEmpty}
-              color="#00AA00"
-              onPress={this.handleStartQuiz}
-            >
-              <ActionButtonText disabled={deckEmpty}>
-                Start Quiz
-              </ActionButtonText>
+            <ActionButton disabled={deckEmpty} color="#00AA00" onPress={this.handleStartQuiz}>
+              <ActionButtonText disabled={deckEmpty}>Start Quiz</ActionButtonText>
             </ActionButton>
           </ActionButtons>
         </Action>

@@ -1,5 +1,4 @@
 import React from "react";
-import { Animated } from "react-native";
 import styled, { css } from "@emotion/native";
 
 export const Card = styled.TouchableHighlight`
@@ -12,17 +11,6 @@ export const CardText = styled.Text`
   font-size: 18px;
   color: ${props => (props.selected ? "#AA0000" : "#333333")};
   font-weight: ${props => (props.selected ? 900 : 400)};
-`;
-
-export const Answer = styled.View`
-  padding: 20px;
-  margin: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-`;
-
-export const AnswerText = styled.Text`
-  font-size: 20px;
 `;
 
 const EmptyText = styled.Text`
