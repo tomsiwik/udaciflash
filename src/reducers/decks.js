@@ -14,7 +14,7 @@ export const decks = (state = {}, action) => {
     }
     case ACTION.UPSERT_DECK: {
       const deck = action.deck;
-      return { ...state, [deck.id]: deck };
+      return { ...state, [deck.id]: { ...deck } };
     }
     case ACTION.LOAD_DECKS:
       return { ...action.decks };

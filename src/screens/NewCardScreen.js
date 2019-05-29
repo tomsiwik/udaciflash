@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
-import { Action, ActionButtons, ActionButton, ActionButtonText } from "../components";
+import { View } from "react-native";
+import {
+  Action,
+  ActionButtons,
+  ActionButton,
+  ActionButtonText
+} from "../components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
 import { ScrollView } from "react-native-gesture-handler";
+import { Input } from "../components";
 
 class NewCardScreen extends React.Component {
   static navigationOptions = {
@@ -34,7 +40,6 @@ class NewCardScreen extends React.Component {
   };
 
   handleChange = target => e => {
-    console.log(e);
     this.setState({
       [target]: e.nativeEvent.text
     });
@@ -47,14 +52,19 @@ class NewCardScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <TextInput placeholder="Question" onChange={this.handleChange("question")} />
-          <TextInput placeholder="Answer" onChange={this.handleChange("answer")} />
-          <Text>{question}</Text>
-          <Text>{answer}</Text>
+          <Input
+            placeholder="Question"
+            onChange={this.handleChange("question")}
+          />
+          <Input placeholder="Answer" onChange={this.handleChange("answer")} />
         </ScrollView>
         <Action>
           <ActionButtons>
-            <ActionButton disabled={!fullFilled} color="#AA0000" onPress={this.handleSaveCard}>
+            <ActionButton
+              disabled={!fullFilled}
+              color="#AA0000"
+              onPress={this.handleSaveCard}
+            >
               <ActionButtonText>Save Card</ActionButtonText>
             </ActionButton>
           </ActionButtons>

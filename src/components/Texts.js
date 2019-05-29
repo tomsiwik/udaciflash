@@ -1,17 +1,5 @@
 import React from "react";
-import styled, { css } from "@emotion/native";
-
-export const Card = styled.TouchableHighlight`
-  display: flex;
-  padding: 20px;
-  margin-bottom: 1px;
-`;
-
-export const CardText = styled.Text`
-  font-size: 18px;
-  color: ${props => (props.selected ? "#AA0000" : "#333333")};
-  font-weight: ${props => (props.selected ? 900 : 400)};
-`;
+import styled from "@emotion/native";
 
 const EmptyText = styled.Text`
   font-size: 20px;
@@ -31,7 +19,7 @@ export const Empty = ({ children, ...props }) => (
 );
 
 const InfoText = styled.Text`
-  font-size: 12px;
+  font-size: 18px;
   margin: 40px;
   text-align: center;
   line-height: 30px;
@@ -46,3 +34,16 @@ export const Info = ({ children, ...props }) => (
     <InfoText>{children}</InfoText>
   </InfoContainer>
 );
+
+export const Headline = styled.Text`
+  color: #ffffff;
+  font-size: 16px;
+`;
+
+export const HeadlineContainer = styled.View`
+  padding: 20px;
+  background-color: #aa0000;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;

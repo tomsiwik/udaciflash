@@ -15,7 +15,7 @@ export const initRepeatingNotification = async () => {
   const skipDayValue = await AsyncStorage.getItem(LOCAL_NOTIFICATION_ID);
   const skipDay = !!skipDayValue ? Number(skipDayValue) : now.getTime();
 
-  console.log("Skipping today: ", skipDay > now);
+  console.debug("Skipping today: ", skipDay > now);
 
   scheduleNotification(skipDay > now);
 };
@@ -44,7 +44,7 @@ const scheduleNotification = async skipToday => {
     }
   );
 
-  console.log("Next notification scheduled: ", when);
+  console.debug("Next notification scheduled: ", when);
 
   await AsyncStorage.setItem(LOCAL_NOTIFICATION_ID, when.getTime().toString());
 };

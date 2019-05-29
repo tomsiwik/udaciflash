@@ -10,6 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
 import { ScrollView } from "react-native-gesture-handler";
+import { Input } from "../components";
 
 class NewDeckScreen extends React.Component {
   static navigationOptions = {
@@ -21,11 +22,24 @@ class NewDeckScreen extends React.Component {
     topic: undefined
   };
 
-  // TODO: get ID from deck here (navigation state)
-
   handleSaveDeck = e => {
     const { topic } = this.state;
-    console.log("New deck:", { topic });
+    const { navigation } = this.props;
+
+    const {
+      state: {
+        params: { save }
+      }
+    } = navigation;
+
+    save({ topic });
+    navigation.goBack();
+  };
+
+  handleChange = e => {
+    this.setState({
+      topic: e.nativeEvent.text
+    });
   };
 
   render() {
@@ -35,7 +49,7 @@ class NewDeckScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <View />
+          <Input placeholder="Topic" onChange={this.handleChange} />
         </ScrollView>
         <Action>
           <ActionButtons>
@@ -44,7 +58,7 @@ class NewDeckScreen extends React.Component {
               color="#AA0000"
               onPress={this.handleSaveDeck}
             >
-              <ActionButtonText>Save Deck</ActionButtonText>
+              <ActionButtonText>Create Deck</ActionButtonText>
             </ActionButton>
           </ActionButtons>
         </Action>

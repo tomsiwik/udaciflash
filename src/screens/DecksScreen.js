@@ -4,7 +4,13 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
 
-import { Card, CardText, Action, ActionButtons, ActionButton, ActionButtonText } from "../components";
+import {
+  ListItem,
+  Action,
+  ActionButtons,
+  ActionButton,
+  ActionButtonText
+} from "../components";
 
 class DecksScreen extends React.Component {
   static navigationOptions = {
@@ -35,12 +41,14 @@ class DecksScreen extends React.Component {
       <View style={{ flex: 1 }}>
         <FlatList
           data={Object.values(decks || {})}
+          keyExtractor={item => `${item.topic}_${item.id}`}
           renderItem={({ item }) => (
-            <Card onPress={this.handleSelectDeck(item)}>
-              <CardText selected={item.id === deck}>
-                {item.topic} - {item.cards.length} Cards
-              </CardText>
-            </Card>
+            <ListItem
+              onPress={this.handleSelectDeck(item)}
+              selected={item.id === deck}
+            >
+              {item.topic} ({item.cards ? item.cards.length : 0} Cards)
+            </ListItem>
           )}
         />
         <Action>
