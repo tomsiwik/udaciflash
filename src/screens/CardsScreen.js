@@ -63,7 +63,7 @@ class CardsScreen extends React.Component {
       decks
     } = this.props;
 
-    const deck = decks[deckId];
+    const deck = decks[deckId] || { topic: "", cards: [] };
     const cards = deck ? deck.cards : [];
     const deckEmpty = cards.length == 0;
 

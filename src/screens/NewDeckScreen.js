@@ -31,8 +31,11 @@ class NewDeckScreen extends React.Component {
       }
     } = navigation;
 
-    save({ topic });
-    navigation.goBack();
+    const deckId = new Date();
+
+    save({ topic, id: deckId });
+
+    navigation.replace("Cards", { deckId });
   };
 
   handleChange = e => {
