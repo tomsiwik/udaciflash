@@ -1,6 +1,6 @@
 import React from "react";
-import { View } from "react-native";
 import {
+  Container,
   Action,
   ActionButtons,
   ActionButton,
@@ -15,15 +15,12 @@ import { Input } from "../components";
 class NewCardScreen extends React.Component {
   static navigationOptions = {
     title: "New Card"
-    //TODO: add back button
   };
 
   state = {
     question: undefined,
     answer: undefined
   };
-
-  // TODO: get ID from deck here (navigation state)
 
   handleSaveCard = e => {
     const { question, answer } = this.state;
@@ -50,7 +47,7 @@ class NewCardScreen extends React.Component {
     const fullFilled = !!question && !!answer;
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         <ScrollView>
           <Input
             placeholder="Question"
@@ -69,7 +66,7 @@ class NewCardScreen extends React.Component {
             </ActionButton>
           </ActionButtons>
         </Action>
-      </View>
+      </Container>
     );
   }
 }

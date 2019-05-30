@@ -69,11 +69,12 @@ export const upsertDeck = async deck => {
 
 export const addCard = async (deckId, card) => {
   const deck = await getDeck(deckId);
+  const newCard = _format(card);
 
   upsertDeck({
     ...deck,
-    cards: [...deck.cards, _format(card)]
+    cards: [...deck.cards, newCard]
   });
 
-  return deck;
+  return newCard;
 };

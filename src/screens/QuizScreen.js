@@ -1,8 +1,8 @@
 import React from "react";
-import { ScrollView, View, Text } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
+  Container,
   FlipCard,
   Headline,
   HeadlineContainer,
@@ -96,7 +96,7 @@ class QuizScreen extends React.Component {
     const procCorrect = (score / cards.length) * 100;
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         {completed ? (
           <Info>Completed: {parseInt(procCorrect)}% Correct</Info>
         ) : (
@@ -153,7 +153,7 @@ class QuizScreen extends React.Component {
             </ActionButtons>
           </Action>
         )}
-      </View>
+      </Container>
     );
   }
 }

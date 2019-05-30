@@ -8,8 +8,6 @@ export const Action = styled.View`
   background-color: "#F0F0F0"
   flex: 1,
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const ActionButtons = styled.View`

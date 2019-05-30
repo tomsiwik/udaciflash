@@ -2,25 +2,6 @@ import React from "react";
 import styled, { css } from "@emotion/native";
 import { Animated } from "react-native";
 
-export const CardContainer = styled.View`
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-`;
-
-export const CardRevealButton = styled.TouchableHighlight`
-  display: flex;
-  padding: 30px;
-  margin: 20px;
-`;
-
-export const CardRevealButtonText = styled.Text`
-  font-size: 18px;
-  color: #888888;
-  text-align: center;
-  font-weight: 900;
-`;
-
 const QuestionAnswerStyle = css`
   padding: 20px;
   background: #f9f9f9;
@@ -32,6 +13,33 @@ const QuestionAnswerStyle = css`
   bottom: 0;
   position: absolute;
   z-index: 1;
+`;
+
+const CenterWrapperStyle = css`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const CardContainer = styled.View`
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+`;
+
+export const QuestionInnerTouchable = styled.TouchableHighlight`
+  ${CenterWrapperStyle}
+`;
+
+export const AnswerInnerContainer = styled.TouchableHighlight`
+  ${CenterWrapperStyle}
+`;
+
+export const CardRevealHint = styled.Text`
+  font-size: 18px;
+  color: #aaaaaa;
+  text-align: center;
+  font-weight: 900;
 `;
 
 export const Question = styled(Animated.View)`
@@ -128,16 +136,20 @@ export class FlipCard extends React.Component {
     return (
       <CardContainer>
         <Question style={flipDownAnimationStyle}>
-          <QuestionText>{question}</QuestionText>
-          <CardRevealButton
+          <QuestionInnerTouchable
             onPress={this.handlePress}
             underlayColor="transparent"
           >
-            <CardRevealButtonText>Show Answer</CardRevealButtonText>
-          </CardRevealButton>
+            <>
+              <QuestionText>{question}</QuestionText>
+              <CardRevealHint>Tap to Show Answer</CardRevealHint>
+            </>
+          </QuestionInnerTouchable>
         </Question>
         <Answer style={flipUpAnimationStyle}>
-          <AnswerText>{answer}</AnswerText>
+          <AnswerInnerContainer>
+            <AnswerText>{answer}</AnswerText>
+          </AnswerInnerContainer>
         </Answer>
       </CardContainer>
     );

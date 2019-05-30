@@ -1,6 +1,6 @@
 import React from "react";
-import { View } from "react-native";
 import {
+  Container,
   Action,
   ActionButtons,
   ActionButton,
@@ -15,7 +15,6 @@ import { Input } from "../components";
 class NewDeckScreen extends React.Component {
   static navigationOptions = {
     title: "New Deck"
-    // TODO: add back button
   };
 
   state = {
@@ -47,7 +46,7 @@ class NewDeckScreen extends React.Component {
     const fullFilled = !!topic;
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         <ScrollView>
           <Input placeholder="Topic" onChange={this.handleChange} />
         </ScrollView>
@@ -62,7 +61,7 @@ class NewDeckScreen extends React.Component {
             </ActionButton>
           </ActionButtons>
         </Action>
-      </View>
+      </Container>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import {
+  Container,
   ListItem,
   Empty,
   Action,
@@ -67,7 +68,7 @@ class CardsScreen extends React.Component {
     const deckEmpty = cards.length == 0;
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         <HeadlineContainer>
           <Headline>{deck.topic}</Headline>
           <Headline>{deck.cards.length} cards</Headline>
@@ -109,7 +110,7 @@ class CardsScreen extends React.Component {
             </ActionButton>
           </ActionButtons>
         </Action>
-      </View>
+      </Container>
     );
   }
 }

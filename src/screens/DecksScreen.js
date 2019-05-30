@@ -1,10 +1,11 @@
 import React from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../actions";
 
 import {
+  Container,
   ListItem,
   Action,
   ActionButtons,
@@ -38,7 +39,7 @@ class DecksScreen extends React.Component {
     const { decks, deck } = this.props;
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         <FlatList
           data={Object.values(decks || {})}
           keyExtractor={item => `${item.topic}_${item.id}`}
@@ -58,7 +59,7 @@ class DecksScreen extends React.Component {
             </ActionButton>
           </ActionButtons>
         </Action>
-      </View>
+      </Container>
     );
   }
 }

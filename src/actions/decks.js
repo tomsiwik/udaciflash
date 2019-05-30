@@ -6,8 +6,8 @@ import {
 } from "../utils";
 
 // HOC actions, is this an anti-pattern?
-export const addCard = (deckId, card) => async dispatch => {
-  await addCardApi(deckId, card);
+export const addCard = (deckId, cardPartial) => async dispatch => {
+  const card = await addCardApi(deckId, cardPartial);
 
   dispatch({
     type: ACTION.ADD_CARD,
